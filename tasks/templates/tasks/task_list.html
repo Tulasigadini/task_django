@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        /* Add custom styles here */
+        /* Example styles for demonstration purposes */
+        body {
+            padding: 20px;
+        }
+        .task-table {
+            width: 100%;
+        }
+        .task-table th {
+            background-color: #f0f0f0;
+        }
+
+        #logout a {
+            padding: 10px;
+            color: #fff;
+            background-color: #051883;
+            text-decoration: none;
+            margin: 10px 10px;
+            width: auto;
+            margin-left: 200px;
+            text-align: center;
+        }
+
+        .search-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        @media (max-width: 576px) {
+            .search-form {
+                flex-direction: column;
+            }
+
+            .search-input {
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Task List</h1>
+        <form method="GET" action="{% url 'task_list' %}" class="search-form">
+            <div class="input-group">
+                <input type="text" class="form-control search-input" placeholder="Search tasks" name="search" value="{{ search_query }}">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </form>
+        <table class="table task-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.due_date }}</td>
+                    <td>
+                        {% if task.completed %}
+                            <span class="text-success">&#10003;</span>  <!-- Tick mark for completed tasks -->
+                        {% else %}
+                            <span class="text-danger">&#10005;</span>  <!-- Cross mark for incomplete tasks -->
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'update_task' task.pk %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_task' task.pk %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'create_task' %}" class="btn btn-success">Create Task</a>
+        <div id="logout">
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

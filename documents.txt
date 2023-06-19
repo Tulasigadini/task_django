@@ -1,0 +1,26 @@
+Project task management system using django
+
+how to run
+1.create project= python-m django createproject pro
+2.create app python manage.py startapp
+3.after writing models do migrations=python manage.py makemigrations tasks,python manage,py migrate
+4.create templates
+- tasks
+  - templates
+    - tasks
+      - task_confirm_delete.html
+      - task_form.html
+      - task_list.html
+      - login.html
+      - registration.html
+
+
+runserver=python manage.py runserver
+
+developeer details
+------------------
+Tulasi sai kumat
+tskgadini@gmail.com
+ph=8712387892
+
+
